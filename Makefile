@@ -1,4 +1,4 @@
-NAME = fractol.a
+NAME = fractol
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
@@ -6,7 +6,6 @@ CFLAGS = -Wall -Wextra -Werror
 MLX_PATH = ./minilibx-linux
 MLX_LIB = $(MLX_PATH)/libmlx.a
 MLX_FLAGS = -L $(MLX_PATH) -lmlx -lXext -lX11 -lm
-EXE = fractol
 
 SRC =	color.c \
 		exit.c \
@@ -14,7 +13,8 @@ SRC =	color.c \
 		julia.c \
 		main.c \
 		mandelbrot.c \
-		set.c
+		set.c \
+		utils.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -22,8 +22,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 		make -C $(MLX_PATH)
-		ar rcs $(NAME) $(OBJ)
-		$(CC) $(CFLAGS) $(OBJ) -o $(EXE) $(MLX_FLAGS)
+		$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(MLX_FLAGS)
 
 clean:
 		make -C $(MLX_PATH) clean

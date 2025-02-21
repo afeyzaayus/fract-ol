@@ -6,7 +6,7 @@
 /*   By: aserbest <aserbest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 12:52:47 by aserbest          #+#    #+#             */
-/*   Updated: 2025/02/16 15:16:36 by aserbest         ###   ########.fr       */
+/*   Updated: 2025/02/20 17:57:59 by aserbest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,19 +58,20 @@ typedef struct s_graph
 	t_complex	c;
 }	t_graph;
 
-int			clean_window(t_graph *graph);
-int			quit(void *param);
-void		set_initial_zoom(t_graph *graph);
 t_complex	pixel_to_complex(int x, int y, t_zoom *zoom);
-void		put_pixel_to_image(t_graph *graph, int x, int y, int color);
-int			get_rid_of(t_complex z, t_complex c);
-int			get_color(int iter);
-double		set_zoom_factor(int button);
 double		ft_atof(const char *str);
+double		set_zoom_factor(int button);
+void		set_initial_zoom(t_graph *graph);
+void		put_pixel_to_image(t_graph *graph, int x, int y, int color);
 void		draw_julia(t_graph *graph);
 void		draw_mandelbrot(t_graph *graph);
 void		set_julia(t_graph *g, char **argv);
+void		*ft_memset(void *s, int c, size_t len);
 void		set_mandelbrot(t_graph *g);
+int			clean_window(t_graph *graph);
+int			get_rid_of(t_complex z, t_complex c);
+int			get_color(int iter);
+int			is_valid_number(const char *str);
 int			mouse_julia(int button, int x, int y, void *param);
 int			mouse_mandelbrot(int button, int x, int y, void *param);
 int			key_mandelbrot(int keycode, t_graph *graph);

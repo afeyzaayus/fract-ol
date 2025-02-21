@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aserbest <aserbest@student.42kocaeli.com.  +#+  +:+       +#+        */
+/*   By: aserbest <aserbest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 15:13:17 by aserbest          #+#    #+#             */
-/*   Updated: 2025/02/16 15:15:47 by aserbest         ###   ########.fr       */
+/*   Updated: 2025/02/20 17:56:56 by aserbest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,33 +29,27 @@ double	set_zoom_factor(int button)
 	return (1.0);
 }
 
-static int	is_valid_number(const char *str)
+static void	create_mlx(t_graph *g)
 {
-	int	dot_count;
-	int	sign_count;
-
-	dot_count = 0;
-	sign_count = 0;
-	if (*str == '-')
+	g->mlx = mlx_init();
+	if (!g->mlx)
 	{
-		sign_count++;
-		str++;
+		write(1, "Malloc failed for mlx connection.\n", 34);
+		clean_window(g);
 	}
-	while (*str)
+	g->win = mlx_new_window(g->mlx, WIDTH, HEIGHT, "aserbest");
+	if (!g->win)
 	{
-		if (*str == '.')
-		{
-			dot_count++;
-			if (dot_count > 1)
-				return (0);
-		}
-		else if (*str < '0' || *str > '9')
-			return (0);
-		str++;
+		write(1, "Malloc failed for window connection.\n", 37);
+		clean_window(g);
 	}
-	if (sign_count > 1)
-		return (0);
-	return (1);
+	g->img = mlx_new_image(g->mlx, WIDTH, HEIGHT);
+	if (!g->img)
+	{
+		write(1, "Malloc failed for mlx connection.\n", 34);
+		clean_window(g);
+	}
+	g->img_data = mlx_get_data_addr(g->img, &g->bpp, &g->size_line, &g->endian);
 }
 
 void	set_julia(t_graph *g, char **argv)
@@ -65,10 +59,7 @@ void	set_julia(t_graph *g, char **argv)
 		write(1, "Invalid arguments!!\n", 20);
 		exit(1);
 	}
-	g->mlx = mlx_init();
-	g->win = mlx_new_window(g->mlx, WIDTH, HEIGHT, "aserbest");
-	g->img = mlx_new_image(g->mlx, WIDTH, HEIGHT);
-	g->img_data = mlx_get_data_addr(g->img, &g->bpp, &g->size_line, &g->endian);
+	create_mlx(g);
 	set_initial_zoom(g);
 	g->c.re = ft_atof(argv[2]);
 	g->c.im = ft_atof(argv[3]);
@@ -79,10 +70,7 @@ void	set_julia(t_graph *g, char **argv)
 
 void	set_mandelbrot(t_graph *g)
 {
-	g->mlx = mlx_init();
-	g->win = mlx_new_window(g->mlx, WIDTH, HEIGHT, "aserbest");
-	g->img = mlx_new_image(g->mlx, WIDTH, HEIGHT);
-	g->img_data = mlx_get_data_addr(g->img, &g->bpp, &g->size_line, &g->endian);
+	create_mlx(g);
 	set_initial_zoom(g);
 	draw_mandelbrot(g);
 	mlx_key_hook(g->win, key_mandelbrot, g);

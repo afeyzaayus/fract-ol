@@ -6,7 +6,7 @@
 /*   By: aserbest <aserbest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 12:45:09 by aserbest          #+#    #+#             */
-/*   Updated: 2025/02/16 14:51:23 by aserbest         ###   ########.fr       */
+/*   Updated: 2025/02/20 17:09:00 by aserbest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	get_color(int iter)
 	int		blue;
 
 	t = (double)iter / MAX_ITER;
-	red = (int)((sin(t * PI) * 0.5 + 0.5) * 255);
+	red = (int)((cos(t * PI) * 0.5 + 0.5) * 255);
 	green = (int)((cos(t * PI) * 0.5 + 0.5) * 255);
 	blue = (int)((sin(t * PI) * 0.5 + 0.5) * 255);
 	return ((red << 16) | (green << 8) | blue);

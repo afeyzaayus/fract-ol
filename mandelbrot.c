@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mandelbrot.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aserbest <aserbest@student.42kocaeli.com.  +#+  +:+       +#+        */
+/*   By: aserbest <aserbest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 15:05:12 by aserbest          #+#    #+#             */
-/*   Updated: 2025/02/16 15:12:50 by aserbest         ###   ########.fr       */
+/*   Updated: 2025/02/20 15:34:19 by aserbest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ void	draw_mandelbrot(t_graph *graph)
 		while (x < WIDTH)
 		{
 			iter = 0;
-			z = pixel_to_complex(x, y, &graph->zoom);
-			graph->c = z;
+			z.re = 0;
+			z.im = 0;
+			graph->c = pixel_to_complex(x, y, &graph->zoom);
 			iter = get_rid_of(z, graph->c);
 			put_pixel_to_image(graph, x, y, get_color(iter));
 			x++;
