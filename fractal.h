@@ -6,7 +6,7 @@
 /*   By: aserbest <aserbest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 12:52:47 by aserbest          #+#    #+#             */
-/*   Updated: 2025/02/20 17:57:59 by aserbest         ###   ########.fr       */
+/*   Updated: 2025/02/28 18:38:02 by aserbest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 # define FRACTAL_H
 
 # include "minilibx-linux/mlx.h"
-# include "minilibx-linux/mlx_int.h"
+# include <unistd.h>
 # include <stdlib.h>
 # include <math.h>
 
 # define ESC 65307
-# define HEIGHT 500
-# define WIDTH 500
+# define HEIGHT 400
+# define WIDTH 400
 # define BAIL_OUT 4
 # define MAX_ITER 75
 # define PI 3.14
@@ -58,8 +58,7 @@ typedef struct s_graph
 	t_complex	c;
 }	t_graph;
 
-t_complex	pixel_to_complex(int x, int y, t_zoom *zoom);
-double		ft_atof(const char *str);
+double		ft_atod(const char *str);
 double		set_zoom_factor(int button);
 void		set_initial_zoom(t_graph *graph);
 void		put_pixel_to_image(t_graph *graph, int x, int y, int color);

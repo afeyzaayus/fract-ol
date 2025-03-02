@@ -6,7 +6,7 @@
 /*   By: aserbest <aserbest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 13:57:30 by aserbest          #+#    #+#             */
-/*   Updated: 2025/02/16 14:22:49 by aserbest         ###   ########.fr       */
+/*   Updated: 2025/03/02 12:58:24 by aserbest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ void	draw_julia(t_graph *graph)
 		while (x < WIDTH)
 		{
 			iter = 0;
-			z = pixel_to_complex(x, y, &graph->zoom);
+			z.re = (graph->zoom.max_re - graph->zoom.min_re) * x
+				/ (double)WIDTH + graph->zoom.min_re;
+			z.im = (graph->zoom.max_im - graph->zoom.min_im) * y
+				/ (double)HEIGHT + graph->zoom.min_im;
 			iter = get_rid_of(z, graph->c);
 			put_pixel_to_image(graph, x, y, get_color(iter));
 			x++;
@@ -44,7 +47,10 @@ int	mouse_julia(int button, int x, int y, void *param)
 
 	graph = param;
 	factor = set_zoom_factor(button);
-	mouse = pixel_to_complex(x, y, &graph->zoom);
+	mouse.re = (graph->zoom.max_re - graph->zoom.min_re) * x
+		/ (double)WIDTH + graph->zoom.min_re;
+	mouse.im = (graph->zoom.max_im - graph->zoom.min_im) * y
+		/ (double)HEIGHT + graph->zoom.min_im;
 	graph->zoom.max_re = mouse.re + (graph->zoom.max_re - mouse.re) * factor;
 	graph->zoom.min_re = mouse.re + (graph->zoom.min_re - mouse.re) * factor;
 	graph->zoom.max_im = mouse.im + (graph->zoom.max_im - mouse.im) * factor;

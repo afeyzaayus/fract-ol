@@ -6,7 +6,7 @@
 /*   By: aserbest <aserbest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/16 15:13:17 by aserbest          #+#    #+#             */
-/*   Updated: 2025/02/20 17:56:56 by aserbest         ###   ########.fr       */
+/*   Updated: 2025/03/02 12:55:08 by aserbest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	create_mlx(t_graph *g)
 	g->img = mlx_new_image(g->mlx, WIDTH, HEIGHT);
 	if (!g->img)
 	{
-		write(1, "Malloc failed for mlx connection.\n", 34);
+		write(1, "Malloc failed for image connection.\n", 36);
 		clean_window(g);
 	}
 	g->img_data = mlx_get_data_addr(g->img, &g->bpp, &g->size_line, &g->endian);
@@ -61,8 +61,8 @@ void	set_julia(t_graph *g, char **argv)
 	}
 	create_mlx(g);
 	set_initial_zoom(g);
-	g->c.re = ft_atof(argv[2]);
-	g->c.im = ft_atof(argv[3]);
+	g->c.re = ft_atod(argv[2]);
+	g->c.im = ft_atod(argv[3]);
 	draw_julia(g);
 	mlx_key_hook(g->win, key_julia, g);
 	mlx_mouse_hook(g->win, mouse_julia, g);

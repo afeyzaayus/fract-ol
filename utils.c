@@ -6,16 +6,16 @@
 /*   By: aserbest <aserbest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 17:57:16 by aserbest          #+#    #+#             */
-/*   Updated: 2025/02/20 17:58:38 by aserbest         ###   ########.fr       */
+/*   Updated: 2025/02/25 20:04:50 by aserbest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractal.h"
 
-static void	set_variables(double *res, double *fraction, double *div, int *sign)
+static void	set_variable(double *integer, double *fract, double *div, int *sign)
 {
-	*res = 0.0;
-	*fraction = 0.0;
+	*integer = 0.0;
+	*fract = 0.0;
 	*div = 1.0;
 	*sign = 1;
 }
@@ -53,20 +53,20 @@ static int	return_sign(char c)
 		return (1);
 }
 
-double	ft_atof(const char *str)
+double	ft_atod(const char *str)
 {
-	double	result;
+	double	integer;
 	double	fraction;
 	double	divisor;
 	int		sign;
 
-	set_variables(&result, &fraction, &divisor, &sign);
+	set_variable(&integer, &fraction, &divisor, &sign);
 	while (*str == ' ' || (*str >= '\t' && *str <= '\r'))
 		str++;
 	if (*str == '-' || *str == '+')
 		sign = return_sign(*str++);
 	while (*str >= '0' && *str <= '9')
-		result = result * 10.0 + (*str++ - '0');
+		integer = integer * 10.0 + (*str++ - '0');
 	if (*str == '.')
 	{
 		str++;
@@ -76,7 +76,7 @@ double	ft_atof(const char *str)
 			divisor *= 10.0;
 		}
 	}
-	return (sign * (result + fraction / divisor));
+	return (sign * (integer + fraction / divisor));
 }
 
 void	*ft_memset(void *s, int c, size_t len)
